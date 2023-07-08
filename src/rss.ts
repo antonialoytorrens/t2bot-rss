@@ -71,7 +71,7 @@ export class RssHandler {
     public async sendEntryTo(feed: FeedData, entry: FeedEntry, roomId: string) {
         const name = feed.link ? `<a href="${encodeURI(feed.link)}">${sanitizeHtml(feed.title ?? "Unknown Feed")}</a>` : sanitizeHtml(feed.title ?? "Unknown Feed");
         const title = entry.link ? `<a href="${encodeURI(entry.link)}">${sanitizeHtml(entry.title ?? "Unknown Post")}</a>` : sanitizeHtml(entry.title ?? "Unknown Post");
-        const template = `New post in ${name}: <b>${title}</b>`;
+        const template = `${title}<br/>Via ${name}`;
         await this.appservice.botClient.sendHtmlText(roomId, template);
     }
 }
