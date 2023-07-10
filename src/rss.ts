@@ -70,8 +70,8 @@ export class RssHandler {
 
     public async sendEntryTo(feed: FeedData, entry: FeedEntry, roomId: string) {
         const name = feed.link ? `<a href="${encodeURI(feed.link)}">${sanitizeHtml(feed.title ?? "Unknown Feed")}</a>` : sanitizeHtml(feed.title ?? "Unknown Feed");
-        const description = entry.link ? `<a href="${encodeURI(entry.link)}">${sanitizeHtml(entry.description ?? "Unknown Post Description")}</a>` : sanitizeHtml(entry.description ?? "Unknown Post Description");
-        const template = `${description}<br/>Via ${name}`;
+        const description = entry.link ? `${sanitizeHtml(entry.description ?? "Unknown Post Description")}<br/><a href="${encodeURI(entry.link)}">See post link</a>` : sanitizeHtml(entry.description ?? "Unknown Post Description");
+        const template = `${description}<br/><p>&nbsp;</p>Via ${name}`;
         await this.appservice.botClient.sendHtmlText(roomId, template);
     }
 }
